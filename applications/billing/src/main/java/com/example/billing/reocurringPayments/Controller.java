@@ -1,6 +1,7 @@
 package com.example.billing.reocurringPayments;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +18,9 @@ public class Controller {
     @Autowired
     private com.example.payments.Gateway paymentGateway;
 
+    @Autowired
+    private CounterService counter;
+
     @RequestMapping(value = "/reocurringPayment", method = RequestMethod.POST)
     public ResponseEntity<String> createReocurringPayment(@RequestBody Map<String, Object> data){
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -24,6 +28,9 @@ public class Controller {
 
         ResponseEntity<String> response;
         if (paymentGateway.createReocurringPayment((Integer)data.get("amount"))) {
+            // This can be found in the JMX console (JConsole comes with JDK) as an MBean
+            // (org.springframework.metrics.counter.billing.reocurringPayment.created)
+            counter.increment("billing.reocurringPayment.created");
             response = new ResponseEntity<>("{errors: []}", responseHeaders, HttpStatus.CREATED);
         } else {
             response = new ResponseEntity<>("{errors: [\"error1\", \"error2\"]}", responseHeaders, HttpStatus.BAD_REQUEST);

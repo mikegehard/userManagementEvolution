@@ -1,9 +1,14 @@
 package com.example.billing;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.autoconfigure.ExportMetricWriter;
+import org.springframework.boot.actuate.metrics.jmx.JmxMetricWriter;
+import org.springframework.boot.actuate.metrics.writer.MetricWriter;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jmx.export.MBeanExporter;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -20,5 +25,13 @@ public class Application {
     @Bean
     public com.example.payments.Gateway paymentGateway(){
         return new com.example.payments.RecurlyGateway();
+    }
+
+    // An example of pubishing metrics to a writer. This writer can be Redis, OpenTSDB, StatsD
+    // or a custom writer.
+    @Bean
+    @ExportMetricWriter
+    MetricWriter metricWriter(@Qualifier("mbeanExporter") MBeanExporter exporter) {
+        return new JmxMetricWriter(exporter);
     }
 }
