@@ -18,7 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/subscriptions")
-public class Controller {
+public class SubscriptionsController {
 
     @Autowired
     SubscriptionRepository subscriptions;

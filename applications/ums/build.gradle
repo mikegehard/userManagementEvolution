@@ -38,6 +38,7 @@ dependencyManagement {
 dependencies {
     compile(project(":components/subscriptions"))
     compile(project(":components/email"))
+    compile(project(":components/users"))
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("org.springframework.boot:spring-boot-starter-actuator")

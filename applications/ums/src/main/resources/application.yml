@@ -1,11 +1,20 @@
 server:
-  port: 8080
+  port: 8082
 
 spring:
   application:
     name: user-management
 
 emailQueueName: send-email
+
+uaa:
+  url: http://localhost:8080
+  createUserClient:
+    id: login
+    secret: loginsecret
+  loginUserClient:
+      id: app
+      secret: appclientsecret
 
 eureka:
   client:

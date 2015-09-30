@@ -4,6 +4,7 @@ import com.example.billing.Client;
 import com.example.billing.Service;
 import com.example.email.SendEmail;
 import com.example.subscriptions.SubscriptionRepository;
+import com.example.users.UaaClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -42,6 +43,21 @@ public class Application implements CommandLineRunner {
     @Value("${emailQueueName}")
     String emailQueueName;
 
+    @Value("${uaa.createUserClient.id}")
+    String createUserClientId;
+
+    @Value("${uaa.createUserClient.secret}")
+    String createUserClientSecret;
+
+    @Value("${uaa.loginUserClient.id}")
+    String loginUserClientId;
+
+    @Value("${uaa.loginUserClient.secret}")
+    String loginUserClientSecret;
+
+    @Value("${uaa.url}")
+    String uaaUrl;
+
     @Autowired
     RabbitTemplate rabbitTemplate;
 
@@ -66,5 +82,18 @@ public class Application implements CommandLineRunner {
     @Bean
     public SendEmail emailSender() {
         return new SendEmail(emailQueueName, rabbitTemplate);
+    }
+
+    // There are two uaa client beans because of the way that the demo clients are
+    // set up out of the box in the UAA. Realistically, you would have one client entry for UMS
+    // in the UAA that had the necessary grants and scopes set up properly so you wouldn't need both.
+    @Bean
+    public UaaClient createUserUaaClient() {
+        return new UaaClient(createUserClientId, createUserClientSecret, uaaUrl);
+    }
+
+    @Bean
+    public UaaClient loginUserUaaClient() {
+        return new UaaClient(loginUserClientId, loginUserClientSecret, uaaUrl);
     }
 }
