@@ -6,7 +6,9 @@ import com.example.subscriptions.CreateSubscription;
 import com.example.subscriptions.Subscription;
 import com.example.subscriptions.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,10 +38,12 @@ public class SubscriptionsController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<String> create(@RequestBody Map<String, String> params) {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("content-type", MediaType.APPLICATION_JSON.toString());
 
         new CreateSubscription(billingService, emailSender, subscriptions)
                 .run(params.get("userId"), params.get("packageId"));
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>("{ \"acknowledged\": true }", responseHeaders, HttpStatus.CREATED);
     }
 }

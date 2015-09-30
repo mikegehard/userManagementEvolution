@@ -21,6 +21,7 @@ v4      Add Hystrix for service resiliency
 v5      Add custom metrics for reporting on business metrics
 v6      Add asynchronous processing with RabbitMQ
 v7      Use UAA as OAuth2 provider
+v8      Consumer driven PACT between JS client and UMS
 
 ```
 

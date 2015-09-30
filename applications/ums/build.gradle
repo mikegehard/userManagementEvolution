@@ -11,11 +11,13 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE")
+        classpath 'au.com.dius:pact-jvm-provider-gradle_2.10:2.2.1'
     }
 }
 
 apply plugin: 'spring-boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'au.com.dius.pact'
 
 jar {
     baseName = 'ums'
@@ -44,4 +46,27 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.cloud:spring-cloud-starter-eureka")
     compile("com.h2database:h2")
+}
+
+// SUBSCRIBER PROVIDER PACT TEST
+pact {
+    serviceProviders {
+        // You can define as many as you need, but each must have a unique name
+        provider1 {
+            // All the provider properties are optional, and have sensible defaults (shown below)
+            protocol = 'http'
+            host = 'localhost'
+            port = 8082
+            path = '/'
+
+            // Again, you can define as many consumers for each provider as you need, but each must have a unique name
+            hasPactWith('javascriptclient') {
+
+                // currently supports a file path using file() or a URL using url()
+                pactFile = file('../../pact-js-consumer-example/pacts/javascriptclient-ums.json')
+
+
+            }
+        }
+    }
 }

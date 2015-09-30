@@ -1,0 +1,24 @@
+{
+  "name": "pact-js-consumer-example",
+  "version": "0.0.0",
+  "homepage": "https://github.com/mikegehard/userManagementEvolution",
+  "authors": [
+    "Mike Gehard <mgehard@pivotal.io>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "pact-consumer-js-dsl": "~0.2.0",
+    "jquery": "~2.1.4"
+  }
+}

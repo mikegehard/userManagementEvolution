@@ -1,0 +1,37 @@
+{
+  "consumer": {
+    "name": "JavaScriptClient"
+  },
+  "provider": {
+    "name": "UMS"
+  },
+  "interactions": [
+    {
+      "description": "a subscription to create",
+      "provider_state": "a userId 1234 and a packageId 8181",
+      "request": {
+        "method": "post",
+        "path": "/subscriptions",
+        "headers": {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "userId": "1234",
+          "packageId": "8181"
+        }
+      },
+      "response": {
+        "status": 201,
+        "headers": {
+        },
+        "body": {
+          "acknowledged": true
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecificationVersion": "1.0.0"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "spec_dir": "spec",
+  "spec_files": [
+    "**/*[sS]pec.js"
+  ],
+  "helpers": [
+    "../bower_components/pact-consumer-js-dsl/dist/pact-consumer-js-dsl.js",
+  ]
+}

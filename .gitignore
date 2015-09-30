@@ -3,3 +3,10 @@ build/
 
 *.iml
 .idea/
+
+bower_components/
+node_modules/
+
+logs/
+
+pact-mock-service-0.7.1-1-osx/
