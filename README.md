@@ -22,6 +22,7 @@ v5      Add custom metrics for reporting on business metrics
 v6      Add asynchronous processing with RabbitMQ
 v7      Use UAA as OAuth2 provider
 v8      Consumer driven PACT between JS client and UMS
+v9      Use Spring Cloud Configuration server
 
 ```
 
