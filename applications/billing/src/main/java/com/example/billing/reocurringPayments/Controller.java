@@ -31,9 +31,9 @@ public class Controller {
             // This can be found in the JMX console (JConsole comes with JDK) as an MBean
             // (org.springframework.metrics.counter.billing.reocurringPayment.created)
             counter.increment("billing.reocurringPayment.created");
-            response = new ResponseEntity<>("{errors: []}", responseHeaders, HttpStatus.CREATED);
+            response = new ResponseEntity<>("{\"errors\": []}", responseHeaders, HttpStatus.CREATED);
         } else {
-            response = new ResponseEntity<>("{errors: [\"error1\", \"error2\"]}", responseHeaders, HttpStatus.BAD_REQUEST);
+            response = new ResponseEntity<>("{\"errors\": [\"error1\", \"error2\"]}", responseHeaders, HttpStatus.BAD_REQUEST);
         }
 
         return response;
