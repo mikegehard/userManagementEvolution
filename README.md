@@ -23,6 +23,7 @@ v6      Add asynchronous processing with RabbitMQ
 v7      Use UAA as OAuth2 provider
 v8      Consumer driven PACT between JS client and UMS
 v9      Use Spring Cloud Configuration server
+v10     Deploy all of the services using PCF and Spring Cloud Services tile.
 
 ```
 

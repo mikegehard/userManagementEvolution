@@ -6,7 +6,7 @@ spring:
       uri: http://localhost:8888
       failFast: true
       # Pin the configuration for this commit to a specific
-      # commit in the config repo. This allows v9 to be
+      # commit in the config repo. This allows v10 to be
       # unaffected by configuration changes for future
       # evolutions
-      label: c340cf4de1a1b244088493f55e492c962f90c3a0
+      label: b7dc4aa757e7f7548e7a98530a5953cdb8873964
