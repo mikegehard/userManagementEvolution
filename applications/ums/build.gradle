@@ -40,6 +40,11 @@ dependencyManagement {
     }
 }
 
+// Fix for Feign clients NullPointerException with 1.0 version of Spring Cloud Services
+// You are forcing a newer version of Spring Cloud Nextflix to get the patch
+// because the SCS starter parent needs to depend on 1.0.3.RELEASE for now.
+ext["spring-cloud-netflix.version"] = "1.0.4.RELEASE"
+
 dependencies {
     compile(project(":components/subscriptions"))
     compile(project(":components/email"))
