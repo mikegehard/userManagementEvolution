@@ -1,0 +1,22 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile("junit:junit:4.12")
+    testCompile("org.assertj:assertj-core:3.2.0")
+    testCompile 'com.jayway.restassured:rest-assured:2.6.0'
+}
+
+rootProject
+        .subprojects
+        .findAll { it.name.contains("applications/") }
+        .each { project -> tasks.test.dependsOn(":${project.name}:build") }
+
+
+test {
+    // Make sure the tests always get run regardless of input/output state
+    outputs.upToDateWhen { false }
+}

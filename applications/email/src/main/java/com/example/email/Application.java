@@ -7,8 +7,10 @@ import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
@@ -17,6 +19,9 @@ public class Application {
 
     @Value("${queueName}")
     String queueName;
+
+    @Autowired
+    private CounterService counter;
 
     @Bean
     TopicExchange exchange() {
@@ -39,7 +44,7 @@ public class Application {
 
     @Bean
     EmailMessageReceiver receiver() {
-        return new EmailMessageReceiver();
+        return new EmailMessageReceiver(counter);
     }
 
     @Bean

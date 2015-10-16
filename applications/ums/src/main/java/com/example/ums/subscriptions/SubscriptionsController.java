@@ -6,6 +6,7 @@ import com.example.subscriptions.CreateSubscription;
 import com.example.subscriptions.Subscription;
 import com.example.subscriptions.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,6 +32,9 @@ public class SubscriptionsController {
     @Autowired
     SendEmail emailSender;
 
+    @Autowired
+    private CounterService counter;
+
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<Subscription> index() {
         return subscriptions.all();
@@ -43,6 +47,8 @@ public class SubscriptionsController {
 
         new CreateSubscription(billingService, emailSender, subscriptions)
                 .run(params.get("userId"), params.get("packageId"));
+
+        counter.increment("ums.subscription.created");
 
         return new ResponseEntity<>("{ \"acknowledged\": true }", responseHeaders, HttpStatus.CREATED);
     }
