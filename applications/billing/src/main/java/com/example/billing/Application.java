@@ -1,12 +1,15 @@
 package com.example.billing;
 
+import com.example.billing.reocurringPayments.Service;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableCircuitBreaker
 public class Application {
 
     public static void main(String[] args) {
@@ -20,6 +23,14 @@ public class Application {
     @Bean
     public com.example.payments.Gateway paymentGateway(){
         return new com.example.payments.RecurlyGateway();
+    }
+
+    // You need a bean for this service so that Spring Boot will automatically connect
+    // the bean to Hystrix.
+    // See http://cloud.spring.io/spring-cloud-netflix/spring-cloud-netflix.html#_circuit_breaker_hystrix_clients.
+    @Bean
+    public Service serviceThatMayFail() {
+        return new Service();
     }
 
     // An example of pubishing metrics to a writer. This writer can be Redis, OpenTSDB, StatsD

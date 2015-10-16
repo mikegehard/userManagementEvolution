@@ -21,10 +21,16 @@ public class Controller {
     @Autowired
     private CounterService counter;
 
+    @Autowired
+    Service service;
+
     @RequestMapping(value = "/reocurringPayment", method = RequestMethod.POST)
     public ResponseEntity<String> createReocurringPayment(@RequestBody Map<String, Object> data){
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add("content-type", MediaType.APPLICATION_JSON.toString());
+
+        // make sure that Hystrix is involved in a silly way so it shows up on the dashboard. :-)
+        service.thisMayFail();
 
         ResponseEntity<String> response;
         if (paymentGateway.createReocurringPayment((Integer)data.get("amount"))) {
