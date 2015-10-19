@@ -9,4 +9,4 @@ spring:
       # commit in the config repo. This allows v10 to be
       # unaffected by configuration changes for future
       # evolutions
-      label: b7dc4aa757e7f7548e7a98530a5953cdb8873964
+      label: 9d823f33b1a6a4131a371fb68ddb7912cbdddf5f
