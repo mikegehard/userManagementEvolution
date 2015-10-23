@@ -3,10 +3,10 @@ spring:
     name: billing
   cloud:
     config:
-      uri: http://localhost:8888
+      uri: http://userManagementConfigServer.192.168.11.11.xip.io
       failFast: true
       # Pin the configuration for this commit to a specific
-      # commit in the config repo. This allows v9 to be
+      # commit in the config repo. This allows v10 to be
       # unaffected by configuration changes for future
       # evolutions
-      label: c340cf4de1a1b244088493f55e492c962f90c3a0
+      label: 9d823f33b1a6a4131a371fb68ddb7912cbdddf5f

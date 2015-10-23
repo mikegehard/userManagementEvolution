@@ -27,12 +27,14 @@ repositories {
     maven {
         url 'http://repo.spring.io/milestone'
     }
+    maven {
+        url 'http://repo.spring.io/libs-snapshot'
+    }
 }
 
 dependencyManagement {
     imports {
-        mavenBom 'org.springframework.cloud:spring-cloud-netflix:1.1.0.M1'
-        mavenBom 'org.springframework.cloud:spring-cloud-config:1.1.0.M1'
+        mavenBom "io.pivotal.spring.cloud:spring-cloud-services-starter-parent:1.0.0.RC3"
     }
 }
 
@@ -40,8 +42,9 @@ dependencies {
     compile(project(":components/payments"))
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("org.springframework.cloud:spring-cloud-starter-eureka")
-    compile("org.springframework.cloud:spring-cloud-starter-config")
+    compile("io.pivotal.spring.cloud:spring-cloud-services-starter-service-registry")
+    compile("io.pivotal.spring.cloud:spring-cloud-services-starter-config-client")
+    compile("io.pivotal.spring.cloud:spring-cloud-services-starter-circuit-breaker")
 }
 
 task wrapper(type: Wrapper) {
