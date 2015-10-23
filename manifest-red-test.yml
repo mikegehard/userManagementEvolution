@@ -1,0 +1,28 @@
+---
+# This is necessary because teal uses self signed certificates.
+# The cloudfoundry-certificate-truster library uses this
+# to handle self signed certs.
+env:
+  CF_TARGET: https://api.red.springapps.io
+applications:
+  - name: email-test
+    memory: 512M
+    path: ./applications/email/build/libs/email-0.0.1-SNAPSHOT.jar
+    services:
+      - config-server
+      - rabbit-mq
+  - name: billing-test
+    memory: 512M
+    path: ./applications/billing/build/libs/billing-0.0.1-SNAPSHOT.jar
+    services:
+      - config-server
+      - service-registry
+      - circuit-breaker
+  - name: user-management-test
+    memory: 512M
+    path: ./applications/ums/build/libs/ums-0.0.1-SNAPSHOT.jar
+    services:
+      - config-server
+      - service-registry
+      - rabbit-mq
+      - circuit-breaker
