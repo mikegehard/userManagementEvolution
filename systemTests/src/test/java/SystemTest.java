@@ -12,7 +12,7 @@ import java.util.Map;
 import static com.jayway.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.data.MapEntry.entry;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 public class SystemTest {
             /* TODO:
@@ -68,10 +68,12 @@ public class SystemTest {
         deleteApp.waitFor();
         assertThat(deleteApp.exitValue()).isEqualTo(0);
 
-        Process deployToCloudFoundry = new DeployProcess().start(ServerRegistry.BILLING, manifestLocation);
-        deployToCloudFoundry.waitFor();
+        List<String> appsToStart = new ArrayList<>();
+        appsToStart.add(ServerRegistry.BILLING);
 
-        assertThat(deployToCloudFoundry.exitValue()).isEqualTo(0);
+        DeployProcess deployProcess = new DeployProcess(appsToStart, manifestLocation);
+        deployProcess.run();
+        assertThat(deployProcess.statusCode()).isEqualTo(0);
 
         ServerDetails billingServer = registry.get(ServerRegistry.BILLING);
         int billingInitialValue = billingServer.getMetricValue();
@@ -102,10 +104,9 @@ public class SystemTest {
             assertThat(deleteApp.exitValue()).isEqualTo(0);
         }
 
-        // TODO: Is there a way to run deploys (one for each) in parallel and wait until all exit codes are 0??
-        Process deployToCloudFoundry = new DeployProcess().startAll(manifestLocation);
-        deployToCloudFoundry.waitFor();
-        assertThat(deployToCloudFoundry.exitValue()).isEqualTo(0);
+        DeployProcess deployProcess = new DeployProcess(appsToPush, manifestLocation);
+        deployProcess.run();
+        assertThat(deployProcess.statusCode()).isEqualTo(0);
 
         Map<String, Integer> initialValues = new HashMap<>();
         for(String app : appsToPush) {
