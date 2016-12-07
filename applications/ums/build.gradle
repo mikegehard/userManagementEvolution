@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.3.0.M5'
+        springBootVersion = '1.4.2.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -31,6 +31,7 @@ repositories {
 
 dependencies {
     compile(project(":components/subscriptions"))
+    compile(project(":components/billing"))
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("com.h2database:h2")
