@@ -10,7 +10,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE")
+        classpath("io.spring.gradle:dependency-management-plugin:0.6.1.RELEASE")
     }
 }
 
@@ -29,10 +29,18 @@ repositories {
     }
 }
 
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR2"
+        mavenBom "io.pivotal.spring.cloud:spring-cloud-services-dependencies:1.3.0.RELEASE"
+    }
+}
+
 dependencies {
     compile(project(":components/subscriptions"))
     compile(project(":components/billing"))
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-jdbc")
+    compile("io.pivotal.spring.cloud:spring-cloud-services-starter-service-registry")
     compile("com.h2database:h2")
 }

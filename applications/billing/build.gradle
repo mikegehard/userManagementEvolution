@@ -25,9 +25,16 @@ repositories {
 	mavenCentral()
 }
 
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR2"
+		mavenBom "io.pivotal.spring.cloud:spring-cloud-services-dependencies:1.3.0.RELEASE"
+	}
+}
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile(project(":components/payments"))
+	compile("io.pivotal.spring.cloud:spring-cloud-services-starter-service-registry")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
